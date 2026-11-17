@@ -6,6 +6,16 @@ Add a new entry at the top of **Sync log** every time upstream is merged. Record
 
 ## Sync log
 
+### 2026-11-17 — merged upstream `main` @ `70d75ac`
+
+- Range: `c05984a..70d75ac` (1 PR), merged into `perf-fixes` as `3ee3e35`. Clean merge, no conflicts; fast-forwarded to `main`.
+- **PR #65 `fix/linux-webkit-smooth-scroll`** (MrScripty, merged 2026-10-25)
+  - `src-tauri/src/lib.rs`: Linux-only (`cfg(target_os = "linux")`) block that disables WebKitGTK smooth scrolling on the main webview, fixing laggy touchpad scrolling in the directory tree.
+  - `src-tauri/Cargo.toml`: Linux-only dependency `webkit2gtk = "2"`.
+  - `Cargo.lock`: one line adding `webkit2gtk` to `delta`'s dependencies. The package (2.0.1) was already locked as a Tauri transitive dependency.
+- Security check: the only logic is one WebView setting, with no IPC, file or network access. No new package enters the lockfile, and Windows builds are unaffected. Not compiled on Linux here, so confirm in CI.
+- Local handling: none. The uncommitted `package-lock.json` 0.1.0 → 0.1.8 bump is still uncommitted.
+
 ### 2026-10-19 — merged upstream `main` @ `c05984a`
 
 - Range: `45306ae..c05984a` (1 PR), merged into `perf-fixes` as `cd7d41a`. Clean merge, no conflicts.
